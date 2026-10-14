@@ -88,9 +88,9 @@ const SELF_ROWS: &[(i32, &str, &str, &str)] = &[
 ];
 
 const LOG_ROWS: &[(i32, &str, &str, &str)] = &[
-    (31, "view-log", "list a log file and show it", "view-log"),
-    (32, "clear-log", "empty one log file", "clear-log"),
-    (33, "log-folder", "show the log folder", "log-folder"),
+    (41, "view-log", "list a log file and show it", "view-log"),
+    (42, "clear-log", "empty one log file", "clear-log"),
+    (43, "log-folder", "show the log folder", "log-folder"),
     (0, "Back", "return to the main menu", "back"),
 ];
 
@@ -102,7 +102,7 @@ const FRONT_ROWS: &[(i32, &str, &str, &str)] = &[
         "model",
     ),
     (
-        3,
+        4,
         "system-log",
         "view, clear, and the log folder",
         "system-log",

@@ -401,7 +401,7 @@ fn menu_language_and_columns() {
     assert_eq!(painter.path_label(), "Path");
     let front = painter.display_rows("front");
     let numbers: Vec<_> = front.iter().map(|row| row.number).collect();
-    assert_eq!(numbers, vec![1, 3, 6, 7, 9]);
+    assert_eq!(numbers, vec![1, 4, 6, 7, 9]);
     assert_eq!(front[0].short, "model");
     assert_eq!(front[0].kind, "model");
     assert_eq!(front[1].kind, "system-log");
@@ -413,7 +413,7 @@ fn menu_language_and_columns() {
     let log_rows = painter.display_rows("log");
     assert_eq!(
         log_rows.iter().map(|row| row.number).collect::<Vec<_>>(),
-        vec![31, 32, 33, 0]
+        vec![41, 42, 43, 0]
     );
     assert_eq!(
         log_rows
@@ -598,7 +598,7 @@ fn menu_language_and_columns() {
             "zh-Hans",
             vec![
                 "1. model   : 把所选文件夹中的轮廓图做成三维模型",
-                "3. 系统日志: 查看、清空，以及日志文件夹",
+                "4. 系统日志: 查看、清空，以及日志文件夹",
                 "6. 自我管理: 版本、关于，以及 cargo 生命周期",
                 "7. 语言    : 此菜单的显示语言",
                 "9. 离开    : 离开",
@@ -608,7 +608,7 @@ fn menu_language_and_columns() {
             "zh-Hant",
             vec![
                 "1. model   : 把所選資料夾中的輪廓圖做成三維模型",
-                "3. 系統日誌: 查看、清空，以及日誌資料夾",
+                "4. 系統日誌: 查看、清空，以及日誌資料夾",
                 "6. 自我管理: 版本、關於，以及 cargo 生命週期",
                 "7. 語言    : 這個選單的顯示語言",
                 "9. 離開    : 離開",
@@ -618,7 +618,7 @@ fn menu_language_and_columns() {
             "ko",
             vec![
                 "1. model      : 고른 폴더의 윤곽 이미지로 3D 모델을 만듭니다",
-                "3. 시스템 로그: 보기, 비우기, 로그 폴더",
+                "4. 시스템 로그: 보기, 비우기, 로그 폴더",
                 "6. 자기관리   : 버전, 정보, cargo 수명 주기",
                 "7. 언어       : 이 메뉴의 표시 언어",
                 "9. 종료       : 종료",
@@ -628,7 +628,7 @@ fn menu_language_and_columns() {
             "ja",
             vec![
                 "1. model       : 選んだフォルダの輪郭画像から3Dモデルを作る",
-                "3. システムログ: 表示、消去、ログフォルダ",
+                "4. システムログ: 表示、消去、ログフォルダ",
                 "6. 自己管理    : バージョン、概要、cargo のライフサイクル",
                 "7. 言語        : このメニューの表示言語",
                 "9. 終了        : 終了",

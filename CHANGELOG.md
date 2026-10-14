@@ -7,12 +7,12 @@ Version SSOT: `Cargo.toml` `package.version` and `src/lib.rs` `VERSION`.
 
 ### Changed
 
-- The main menu lists **self-management** as **6** and **language** as **7**. Self-management children are **62**–**67**. Language children are **71**–**83**. Reserved language numbers **70** and **84**–**89** stay unprinted. Model stays **1**, system-log stays **3**, and Exit stays **9**.
+- The main menu lists **system-log** as **4**, **self-management** as **6**, and **language** as **7**. System-log children are **41** view-log, **42** clear-log, and **43** log-folder. Self-management children are **62**–**67**. Language children are **71**–**83**. Reserved language numbers **70** and **84**–**89** stay unprinted. Model stays **1** and Exit stays **9**.
 - The ship unit is the Rust crate **rust3d**. The only binary is `rust3d`. `cargo run` starts it. Version stays **1.0.1**.
 - `model` builds `model.glb` and `viewer.html` from outline images in one folder. Lifecycle verbs use cargo. StatusLog is in-tree (`src/status_log.rs`).
 - Language leaf is `~/.local/rust3d/language`. `RUST3D_LANG` overrides that file for one process and does not write it.
 - Public source is `https://github.com/cloudgen/rust3d`.
-- Menu pictures in `screenshots/` were recaptured on 2026-10-14. The path-row clock is `20:26:52`. Language is row **7** and self-management is row **6**. The about host check is stamped `2026-10-14 20:26:52.404013`.
+- Menu pictures in `screenshots/` were recaptured on 2026-10-14. The path-row clock is `20:26:52`. Language is row **7** and self-management is row **6**. System-log is row **4** and its children are **41**–**43**. The about host check is stamped `2026-10-14 20:26:52.404013`.
 - Empty arguments on a terminal open the full-screen menu (`TermScreen` in `src/menu.rs`). The line prompt is gone. `cargo run` starts `rust3d`.
 
 ## Historical notes — previous package (2026-10-05)

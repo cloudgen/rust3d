@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-rust-cli-language.md
-**Status**: Active (Version 1.0.4 – Language is front row 7. Children are 71–83. Product version stays 1.0.1)
+**Status**: Active (Version 1.0.5 – System-log is front row 4. Children are 41–43. Language stays front row 7. Product version stays 1.0.1)
 **Area**: rust
 **Key**: `requirement-rust-cli-language`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -28,7 +28,7 @@ Struct `MenuLanguage` in `src/language.rs` holds the codes, the saved leaf, and 
 
 | Surface | What you open | What for |
 |---------|---------------|----------|
-| `rust3d` on a terminal | Front board | Row **7** is language. Row **3** is system-log |
+| `rust3d` on a terminal | Front board | Row **7** is language. Row **4** is system-log |
 | `~/.local/rust3d/language` | One-line file in this login’s home | The code saved from the menu |
 | `RUST3D_LANG` | Environment value for this process | Wins over the file and does not write it |
 
@@ -45,7 +45,7 @@ Struct `MenuLanguage` in `src/language.rs` holds the codes, the saved leaf, and 
 2. **Default.** The code **MUST** be `en` when the leaf is missing, when the first line is empty, or when that line is not one of the thirteen codes. An invalid first line **MUST NOT** be rewritten. `LANG`, `LANGUAGE`, `LC_ALL`, and `LC_MESSAGES` **MUST NOT** select a code. This file does not use gettext.
 3. **Process override.** When `RUST3D_LANG` is one of the thirteen codes, that code **MUST** win at process start. That start **MUST NOT** write the leaf. Any other value of `RUST3D_LANG` is ignored and the leaf is read.
 4. **Leaf.** The leaf is `${HOME}/.local/rust3d/language`. The program reads only the first line, ignores a trailing carriage return, and ignores later lines. A menu pick **MUST** write the code, one newline, and nothing else. The directory **MUST** be mode `0700`. The file **MUST** be mode `0600`. The program creates that directory only when a pick is saved. A missing home, or a write that fails, **MUST** keep the code this process already had and **MUST** show the failed-write line in that previous language. The front board **MUST** still return.
-5. **Front row 7.** On every host, including Termux, Git Bash, and Windows cmd, the front board **MUST** print row **7** `language`. That row **MUST** open the language board. It **MUST NOT** run a command and **MUST NOT** leave the program. Row **2** stays omitted. Rows **1**, **6**, and **9** stay model, self-management, and Exit. System-log is front row **3**. Its children are **31** view-log, **32** clear-log, and **33** log-folder. Those numbers are the picture on `requirement-rust-tui`.
+5. **Front row 7.** On every host, including Termux, Git Bash, and Windows cmd, the front board **MUST** print row **7** `language`. That row **MUST** open the language board. It **MUST NOT** run a command and **MUST NOT** leave the program. Row **2** stays omitted. Rows **1**, **6**, and **9** stay model, self-management, and Exit. System-log is front row **4**. Its children are **41** view-log, **42** clear-log, and **43** log-folder. Those numbers are the picture on `requirement-rust-tui`.
 6. **Language block.** The language board uses the twenty numbers **70** through **89**. Assigned rows are **71** through **83**, in the order below. **70** and **84** through **89** are reserved. They **MUST NOT** be printed. Typing a reserved number **MUST** show the unknown-choice line and **MUST NOT** write the leaf. **0**, an empty Enter on Back, and Esc **MUST** return to the front board and **MUST NOT** write the leaf.
 7. **Names on the language board.** Each assigned row **MUST** show that language’s endonym as the short, in every UI language. The explain **MUST** be that UI language’s sentence with the endonym in the name slot. The English sentence is `use {name} for this menu`.
 8. **What follows the code.** On the front board, the folder board, the language board, the system-log board, and the self-management board, these follow the selected code: the path label, the board title, category shorts, category longs, leaf longs, Back, Exit, the unknown-choice line, the saved-language line, and the failed-write line. Leaf shorts stay the English tokens `model`, `current`, `view-log`, `clear-log`, `log-folder`, `version`, `about`, `version-check`, `self-update`, `self-uninstall`, and `self-install`. A subfolder's short is that directory's name.
@@ -80,7 +80,7 @@ Struct `MenuLanguage` in `src/language.rs` holds the codes, the saved leaf, and 
 | **Struct** | `MenuLanguage` in `src/language.rs` |
 | **Painter site** | `MenuPainter::new` writes `MenuLanguage(logger=logger, home=home)` |
 | **Front row** | **7** language. Children **71**–**83**. Reserved and not printed: **70**, **84**–**89** |
-| **System-log** | Front **3**. Children **31** view-log, **32** clear-log, **33** log-folder |
+| **System-log** | Front **4**. Children **41** view-log, **42** clear-log, **43** log-folder |
 | **Leaf** | `${HOME}/.local/rust3d/language`. Directory mode `0700`. File mode `0600`. Not the cache folder. Not `/var/rust3d` |
 | **Override** | `RUST3D_LANG` at process start. Does not write |
 | **Back / Exit shorts** | en Back / Exit. zh-Hans 返回 / 离开. zh-Hant 返回 / 離開. es Atrás / Salir. ar رجوع / خروج. fr Retour / Quitter. pt Voltar / Sair. ru Назад / Выход. de Zurück / Beenden. ja 戻る / 終了. ko 뒤로 / 종료. nl Terug / Afsluiten. el Πίσω / Έξοδος |
@@ -102,8 +102,8 @@ Invocation sample for the row this file owns. There is no `rust3d language` comm
 
 ```text
 rust3d
-4
-43
+7
+73
 ```
 
 That sequence opens the menu, opens the language board, and saves `zh-Hant`.
@@ -158,7 +158,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `rust3d` as
 | ID | Criterion |
 |----|-----------|
 | AC-1 | Front row 7 opens the language board. Rows 71–83 show the endonyms. 70 and 84–89 are not printed |
-| AC-2 | System-log is front row 3. Its children are 31, 32, and 33 |
+| AC-2 | System-log is front row 4. Its children are 41, 42, and 43 |
 | AC-3 | A pick writes `${HOME}/.local/rust3d/language` mode `0600` and switches this process |
 | AC-4 | Back, Esc, and a reserved number do not write. A failed write keeps the previous code |
 | AC-5 | A missing or invalid leaf is English and is not rewritten. `LANG` does not select a code. `RUST3D_LANG` wins and does not write |
@@ -168,7 +168,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `rust3d` as
 
 | TP family / ID | Suite | Status | Note |
 |----------------|-------|--------|------|
-| **TP-LANG-01** | `tests/product.rs` | have | Row 7, rows 71–83, system-log at 3 / 31–33, self-management at 6 / 62–67, save mode `0600`, Back and reserved numbers do not write, `zh-Hant` path word `路徑`, invalid leaf, `RUST3D_LANG`, failed write, leaf shorts stay English |
+| **TP-LANG-01** | `tests/product.rs` | have | Row 7, rows 71–83, system-log at 4 / 41–43, self-management at 6 / 62–67, save mode `0600`, Back and reserved numbers do not write, `zh-Hant` path word `路徑`, invalid leaf, `RUST3D_LANG`, failed write, leaf shorts stay English |
 | **TP-TUI-09** | `tests/test_menu.rs` | have | With no language file, `LANG=zh_TW.UTF-8` keeps `Path`. Peer proof on `requirement-rust-tui` |
 
 **Matrix:** `docs/reviews/requirement-test-matrix.md`
@@ -209,6 +209,7 @@ A **python-cli** is a short-lived Python command: you run it, it works, it exits
 | 2026-10-05 | Active 1.0.2 | Terminologies section copies the words this requirement uses. Product version stays **1.0.1** |
 | 2026-10-05 | Active 1.0.3 | Terminologies name the package `rust3d`, matching `package.name`. The console script stays `rust3d`. Product version stays **1.0.1** |
 | 2026-10-14 | Active 1.0.4 | Front row 7 is language. Children are 71–83. Reserved and not printed: 70 and 84–89. Product version stays **1.0.1** |
+| 2026-10-14 | Active 1.0.5 | System-log is front row 4. Children are 41 view-log, 42 clear-log, and 43 log-folder. Language stays front row 7. Product version stays **1.0.1** |
 ---
 
 **Last Updated**: 2026-10-14

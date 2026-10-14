@@ -22,7 +22,7 @@ The sample conversion is [`sample-images/model/viewer.html`](https://cloudgen.gi
 - Numbered rows line up. A rounded input box sits along the bottom, as wide as the terminal, with the name and version on the status line under the box
 - **model** (1) lists **1** current folder, each subfolder, and **0** back. The chosen folder becomes one 3D model
 - The typed verb `model` builds that model in the terminal and does not draw the menu. With no folder, it uses the current directory
-- **system-log** (3) opens view-log, clear-log, and log-folder. **self-management** (6) opens version, about, and the cargo lifecycle rows. **language** (7) picks the menu language
+- **system-log** (4) opens view-log, clear-log, and log-folder. **self-management** (6) opens version, about, and the cargo lifecycle rows. **language** (7) picks the menu language
 - One binary, `rust3d`. `cargo run` starts it
 - Typed verbs: `help`, `version`, `about`, `model`, `self-install`, `version-check`, `self-update`, `self-uninstall`
 
@@ -30,7 +30,7 @@ The sample conversion is [`sample-images/model/viewer.html`](https://cloudgen.gi
 
 1. **A folder of outlines in, one model out.** `rust3d model` builds a model from outline images in the current directory and does not draw the menu. On the menu, row **1 model** asks for the current folder or a subfolder, then writes `model.glb` and `viewer.html` in that folder's `model` directory. With no arguments on a terminal, the text menu opens and waits. With no terminal and no verb, the program prints help and returns 0. There is no `--json`.
 2. **Built-in languages.** Row **7** lists thirteen languages: English, Simplified Chinese, Traditional Chinese, Spanish, Arabic, French, Portuguese, Russian, German, Japanese, Korean, Dutch, and Greek. The choice is saved for the next run. The note on row 1 follows the menu language.
-3. **Lifecycle and diagnostics.** `version-check`, `self-update`, `self-install`, and `self-uninstall` are menu rows **64**–**67** and typed verbs. `self-uninstall` on the command line needs `--force`. They call cargo and do not use root. **system-log** (**3**) views a log, clears a log, and shows the log folder. **about** (**63**) stays in English.
+3. **Lifecycle and diagnostics.** `version-check`, `self-update`, `self-install`, and `self-uninstall` are menu rows **64**–**67** and typed verbs. `self-uninstall` on the command line needs `--force`. They call cargo and do not use root. **system-log** (**4**) views a log, clears a log, and shows the log folder. **about** (**63**) stays in English.
 
 ## Quick Installation
 
@@ -66,7 +66,7 @@ $ rust3d
 Path: /tmp/clips                                                       12:06:45
 
 1. **model**          : *build a 3D model from outline images in a chosen folder*
-3. **system-log**     : *view, clear, and the log folder*
+4. **system-log**     : *view, clear, and the log folder*
 6. **self-management**: *version, about, and cargo lifecycle*
 7. **language**       : *display language for this menu*
 9. **Exit**           : *leave*
@@ -80,14 +80,14 @@ Path: /tmp/clips                                                       12:06:45
   rust3d 1.0.1  │  main menu  │  Up/Down  •  Enter
 ```
 
-**system-log** (3):
+**system-log** (4):
 
 ```text
 Path: /tmp/clips                                                       12:06:45
 
-31. **view-log**  : *list a log file and show it*
-32. **clear-log** : *empty one log file*
-33. **log-folder**: *show the log folder*
+41. **view-log**  : *list a log file and show it*
+42. **clear-log** : *empty one log file*
+43. **log-folder**: *show the log folder*
  0. **Back**      : *return to the main menu*
 
 
@@ -190,7 +190,7 @@ cargo run
 
 ## Screenshots
 
-Each heading is the file name. The paragraph is what that picture shows: the words on the screen, the characters in the input box, or the scene. Package **1.0.1**. These picture files were recaptured on 2026-10-14. They are captures of rust3d. Language is row **7**. Self-management is row **6**. Row 1 is **model**. The folder board is `model-folder.png`. `model-viewer.png` is the converted model in `sample-images/model/viewer.html`, and that picture links to the viewer. The package index can fetch a picture only after that file is on the public `main` branch. Every picture address is an absolute `https` URL.
+Each heading is the file name. The paragraph is what that picture shows: the words on the screen, the characters in the input box, or the scene. Package **1.0.1**. These picture files were recaptured on 2026-10-14. They are captures of rust3d. Language is row **7**. Self-management is row **6**. Row 1 is **model**. System-log is row **4**. Its children are **41**–**43**. The folder board is `model-folder.png`. `model-viewer.png` is the converted model in `sample-images/model/viewer.html`, and that picture links to the viewer. The package index can fetch a picture only after that file is on the public `main` branch. Every picture address is an absolute `https` URL.
 
 ### `language-menu.png`
 
@@ -200,79 +200,79 @@ Row **7** has opened the language list. **71 English** is highlighted, with the 
 
 ### `main-menu-en.png`
 
-English main menu. There is no saved-language line above the box. The path label is `Path`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "build a 3D model from outline images in a chosen folder" Then **3 system-log** "view, clear, and the log folder" **6 self-management** "version, about, and cargo lifecycle" **7 language** "display language for this menu" and **9 Exit** "leave" The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `main menu`.
+English main menu. There is no saved-language line above the box. The path label is `Path`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "build a 3D model from outline images in a chosen folder" Then **4 system-log** "view, clear, and the log folder" **6 self-management** "version, about, and cargo lifecycle" **7 language** "display language for this menu" and **9 Exit** "leave" The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `main menu`.
 
 ![English main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-en.png)
 
 ### `main-menu-zh-hans.png`
 
-Simplified Chinese main menu. The line above the box says `菜单语言是简体中文`. The path label is `路径`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "把所选文件夹中的轮廓图做成三维模型" **3** is `系统日志`, **6** is `自我管理`, **7** is `语言`, and **9** is `离开`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `主菜单`.
+Simplified Chinese main menu. The line above the box says `菜单语言是简体中文`. The path label is `路径`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "把所选文件夹中的轮廓图做成三维模型" **4** is `系统日志`, **6** is `自我管理`, **7** is `语言`, and **9** is `离开`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `主菜单`.
 
 ![Simplified Chinese main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-zh-hans.png)
 
 ### `main-menu-zh-hant.png`
 
-Traditional Chinese main menu. The line above the box says `選單語言是繁體中文`. The path label is `路徑`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "把所選資料夾中的輪廓圖做成三維模型" **3** is `系統日誌`, **6** is `自我管理`, **7** is `語言`, and **9** is `離開`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `主選單`.
+Traditional Chinese main menu. The line above the box says `選單語言是繁體中文`. The path label is `路徑`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "把所選資料夾中的輪廓圖做成三維模型" **4** is `系統日誌`, **6** is `自我管理`, **7** is `語言`, and **9** is `離開`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `主選單`.
 
 ![Traditional Chinese main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-zh-hant.png)
 
 ### `main-menu-es.png`
 
-Spanish main menu. The line above the box says `El idioma del menú es español`. The path label is `Ruta`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "construye un modelo 3D con los contornos de una carpeta elegida" **3** is `registro`, **6** is `autogestión`, **7** is `idioma`, and **9** is `Salir`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `menú principal`.
+Spanish main menu. The line above the box says `El idioma del menú es español`. The path label is `Ruta`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted: "construye un modelo 3D con los contornos de una carpeta elegida" **4** is `registro`, **6** is `autogestión`, **7** is `idioma`, and **9** is `Salir`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `menú principal`.
 
 ![Spanish main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-es.png)
 
 ### `main-menu-ar.png`
 
-Arabic main menu. The line above the box says `لغة القائمة هي العربية`. The path label is `المسار`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. The numbers stay on the left. Arabic words on each row are shaped and read right to left. **1 model** is highlighted and stays `model`: "يبني نموذجا ثلاثي الأبعاد من حدود المجلد المختار" **3** is `سجل النظام`, **6** is `إدارة ذاتية`, **7** is `لغة`, and **9** is `خروج`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `القائمة الرئيسية`.
+Arabic main menu. The line above the box says `لغة القائمة هي العربية`. The path label is `المسار`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. The numbers stay on the left. Arabic words on each row are shaped and read right to left. **1 model** is highlighted and stays `model`: "يبني نموذجا ثلاثي الأبعاد من حدود المجلد المختار" **4** is `سجل النظام`, **6** is `إدارة ذاتية`, **7** is `لغة`, and **9** is `خروج`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `القائمة الرئيسية`.
 
 ![Arabic main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-ar.png)
 
 ### `main-menu-fr.png`
 
-French main menu. The line above the box says `La langue du menu est le français`. The path label is `Chemin`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "construit un modèle 3D à partir des contours d'un dossier choisi" **3** is `journal`, **6** is `autogestion`, **7** is `langue`, and **9** is `Quitter`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `menu principal`.
+French main menu. The line above the box says `La langue du menu est le français`. The path label is `Chemin`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "construit un modèle 3D à partir des contours d'un dossier choisi" **4** is `journal`, **6** is `autogestion`, **7** is `langue`, and **9** is `Quitter`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `menu principal`.
 
 ![French main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-fr.png)
 
 ### `main-menu-pt.png`
 
-Portuguese main menu. The line above the box says `O idioma do menu é português`. The path label is `Caminho`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "constrói um modelo 3D a partir dos contornos de uma pasta escolhida" **3** is `registo`, **6** is `autogestão`, **7** is `idioma`, and **9** is `Sair`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `menu principal`.
+Portuguese main menu. The line above the box says `O idioma do menu é português`. The path label is `Caminho`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "constrói um modelo 3D a partir dos contornos de uma pasta escolhida" **4** is `registo`, **6** is `autogestão`, **7** is `idioma`, and **9** is `Sair`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `menu principal`.
 
 ![Portuguese main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-pt.png)
 
 ### `main-menu-ru.png`
 
-Russian main menu. The line above the box says `Язык меню — русский`. The path label is `Путь`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "собрать трёхмерную модель из контуров выбранной папки" **3** is `системный журнал`, **6** is `самоуправление`, **7** is `язык`, and **9** is `Выход`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `главное меню`.
+Russian main menu. The line above the box says `Язык меню — русский`. The path label is `Путь`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "собрать трёхмерную модель из контуров выбранной папки" **4** is `системный журнал`, **6** is `самоуправление`, **7** is `язык`, and **9** is `Выход`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `главное меню`.
 
 ![Russian main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-ru.png)
 
 ### `main-menu-de.png`
 
-German main menu. The line above the box says `Die Menüsprache ist Deutsch`. The path label is `Pfad`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "aus Umrissen eines gewählten Ordners ein 3D-Modell bauen" **3** is `Systemprotokoll`, **6** is `Selbstverwaltung`, **7** is `Sprache`, and **9** is `Beenden`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `Hauptmenü`.
+German main menu. The line above the box says `Die Menüsprache ist Deutsch`. The path label is `Pfad`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "aus Umrissen eines gewählten Ordners ein 3D-Modell bauen" **4** is `Systemprotokoll`, **6** is `Selbstverwaltung`, **7** is `Sprache`, and **9** is `Beenden`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `Hauptmenü`.
 
 ![German main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-de.png)
 
 ### `main-menu-ja.png`
 
-Japanese main menu. The line above the box says `メニューの言語は日本語`. The path label is `パス`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "選んだフォルダの輪郭画像から3Dモデルを作る" **3** is `システムログ`, **6** is `自己管理`, **7** is `言語`, and **9** is `終了`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `メインメニュー`.
+Japanese main menu. The line above the box says `メニューの言語は日本語`. The path label is `パス`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "選んだフォルダの輪郭画像から3Dモデルを作る" **4** is `システムログ`, **6** is `自己管理`, **7** is `言語`, and **9** is `終了`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `メインメニュー`.
 
 ![Japanese main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-ja.png)
 
 ### `main-menu-ko.png`
 
-Korean main menu. The line above the box says `메뉴 언어는 한국어`. The path label is `경로`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "고른 폴더의 윤곽 이미지로 3D 모델을 만듭니다" **3** is `시스템 로그`, **6** is `자기관리`, **7** is `언어`, and **9** is `종료`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `주 메뉴`.
+Korean main menu. The line above the box says `메뉴 언어는 한국어`. The path label is `경로`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "고른 폴더의 윤곽 이미지로 3D 모델을 만듭니다" **4** is `시스템 로그`, **6** is `자기관리`, **7** is `언어`, and **9** is `종료`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `주 메뉴`.
 
 ![Korean main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-ko.png)
 
 ### `main-menu-nl.png`
 
-Dutch main menu. The line above the box says `De menutaal is Nederlands`. The path label is `Pad`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "maak een 3D-model van contouren in een gekozen map" **3** is `systeemlog`, **6** is `zelfbeheer`, **7** is `taal`, and **9** is `Afsluiten`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `hoofdmenu`.
+Dutch main menu. The line above the box says `De menutaal is Nederlands`. The path label is `Pad`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "maak een 3D-model van contouren in een gekozen map" **4** is `systeemlog`, **6** is `zelfbeheer`, **7** is `taal`, and **9** is `Afsluiten`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `hoofdmenu`.
 
 ![Dutch main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-nl.png)
 
 ### `main-menu-el.png`
 
-Greek main menu. The line above the box says `Η γλώσσα του μενού είναι ελληνικά`. The path label is `Διαδρομή`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "φτιάχνει ένα τρισδιάστατο μοντέλο από τα περιγράμματα ενός φακέλου" **3** is `αρχείο καταγραφής`, **6** is `αυτοδιαχείριση`, **7** is `γλώσσα`, and **9** is `Έξοδος`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `κύριο μενού`.
+Greek main menu. The line above the box says `Η γλώσσα του μενού είναι ελληνικά`. The path label is `Διαδρομή`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. **1 model** is highlighted and stays `model`: "φτιάχνει ένα τρισδιάστατο μοντέλο από τα περιγράμματα ενός φακέλου" **4** is `αρχείο καταγραφής`, **6** is `αυτοδιαχείριση`, **7** is `γλώσσα`, and **9** is `Έξοδος`. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `κύριο μενού`.
 
 ![Greek main menu](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/main-menu-el.png)
 
@@ -296,9 +296,9 @@ Row **6** has opened self-management. **62 version** is highlighted: "show the i
 
 ### `system-log.png`
 
-Row **3** has opened system-log. **31 view-log** is highlighted: "list a log file and show it" Then **32 clear-log** "empty one log file", **33 log-folder** "show the log folder", and **0 Back** "return to the main menu" The path label is `Path`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `system-log`.
+Row **4** has opened system-log. **41 view-log** is highlighted: "list a log file and show it" Then **42 clear-log** "empty one log file", **43 log-folder** "show the log folder", and **0 Back** "return to the main menu" The path label is `Path`. The path is `/tmp/clips`. The clock is `20:26:52` on the right of that row. The input box shows `>` and no typed text. The status line says `rust3d 1.0.1` and `system-log`.
 
-![System log, 31 view-log highlighted](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/system-log.png)
+![System log, 41 view-log highlighted](https://raw.githubusercontent.com/cloudgen/rust3d/main/screenshots/system-log.png)
 
 ### `model-viewer.png`
 
@@ -362,4 +362,4 @@ MIT — see [`LICENSE.md`](./LICENSE.md). Also declared in `Cargo.toml`.
 
 ## Last Update
 
-2026-10-14 — **1.0.1** working tree: the package name is **rust3d** and the console script is `rust3d`. The public source is `https://github.com/cloudgen/rust3d`. `model` builds `model.glb` and `viewer.html` from outline images in a folder. The default directory is that folder's `model`. Menu row 1 lists **1** current folder, each subfolder, and **0** back, then runs that build. `screenshots/model-viewer.png` is a capture of `sample-images/model/viewer.html`, and that picture links to the viewer. Picture addresses are absolute `https` URLs. Menu pictures are captures of this product at **1.0.1**, including the folder board. Those pictures were recaptured on 2026-10-14. The path-row clock is `20:26:52`. Language is row **7** and self-management is row **6**. The status line says `rust3d 1.0.1`. Version badge matches `Cargo.toml` and `VERSION`. `chrono>=0.4`, `image>=0.25`, `serde_json>=1`, and `unicode-width>=0.2` are required.
+2026-10-14 — **1.0.1** working tree: the package name is **rust3d** and the console script is `rust3d`. The public source is `https://github.com/cloudgen/rust3d`. `model` builds `model.glb` and `viewer.html` from outline images in a folder. The default directory is that folder's `model`. Menu row 1 lists **1** current folder, each subfolder, and **0** back, then runs that build. `screenshots/model-viewer.png` is a capture of `sample-images/model/viewer.html`, and that picture links to the viewer. Picture addresses are absolute `https` URLs. Menu pictures are captures of this product at **1.0.1**, including the folder board. Those pictures were recaptured on 2026-10-14. The path-row clock is `20:26:52`. System-log is row **4**, self-management is row **6**, and language is row **7**. The status line says `rust3d 1.0.1`. Version badge matches `Cargo.toml` and `VERSION`. `chrono>=0.4`, `image>=0.25`, `serde_json>=1`, and `unicode-width>=0.2` are required.
