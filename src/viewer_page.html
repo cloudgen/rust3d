@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rust3d</title>
+<style>
+html, body { margin: 0; height: 100%; background: #121418; color: #d5dde6; font-family: sans-serif; }
+canvas { display: block; width: 100%; height: 100%; }
+p { position: fixed; left: 12px; bottom: 10px; margin: 0; font-size: 13px; }
+</style>
+</head>
+<body>
+<canvas id="view"></canvas>
+<p>rust3d — drag to orbit, wheel to zoom. model.glb is the glTF file.</p>
+<script>
+const posB64 = "__POS__";
+const nrmB64 = "__NRM__";
+const idxB64 = "__IDX__";
+function b64floats(text) {
+  const raw = atob(text);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return new Float32Array(bytes.buffer);
+}
+function b64uints(text) {
+  const raw = atob(text);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return new Uint32Array(bytes.buffer);
+}
+const positions = b64floats(posB64);
+const normals = b64floats(nrmB64);
+const indices = b64uints(idxB64);
+const canvas = document.getElementById("view");
+const gl = canvas.getContext("webgl2", { antialias: true });
+if (!gl) {
+  document.body.insertAdjacentHTML("beforeend", "<p>This browser has no WebGL2.</p>");
+} else {
+  const vs = `#version 300 es
+  layout(location=0) in vec3 aPos;
+  layout(location=1) in vec3 aNrm;
+  uniform mat4 uMvp;
+  uniform mat3 uN;
+  out vec3 vNrm;
+  void main() {
+    vNrm = normalize(uN * aNrm);
+    gl_Position = uMvp * vec4(aPos, 1.0);
+  }`;
+  const fs = `#version 300 es
+  precision mediump float;
+  in vec3 vNrm;
+  out vec4 outColor;
+  void main() {
+    vec3 n = normalize(vNrm);
+    vec3 light = normalize(vec3(0.35, 0.85, 0.45));
+    float shade = 0.28 + 0.72 * max(dot(n, light), 0.0);
+    outColor = vec4(vec3(0.73, 0.78, 0.84) * shade, 1.0);
+  }`;
+  function shader(type, source) {
+    const item = gl.createShader(type);
+    gl.shaderSource(item, source);
+    gl.compileShader(item);
+    return item;
+  }
+  const program = gl.createProgram();
+  gl.attachShader(program, shader(gl.VERTEX_SHADER, vs));
+  gl.attachShader(program, shader(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(program);
+  gl.useProgram(program);
+  function buffer(data, target) {
+    const buf = gl.createBuffer();
+    gl.bindBuffer(target, buf);
+    gl.bufferData(target, data, gl.STATIC_DRAW);
+    return buf;
+  }
+  buffer(positions, gl.ARRAY_BUFFER);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+  buffer(normals, gl.ARRAY_BUFFER);
+  gl.enableVertexAttribArray(1);
+  gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 0, 0);
+  buffer(indices, gl.ELEMENT_ARRAY_BUFFER);
+  const uMvp = gl.getUniformLocation(program, "uMvp");
+  const uN = gl.getUniformLocation(program, "uN");
+  gl.enable(gl.DEPTH_TEST);
+  gl.disable(gl.CULL_FACE);
+  let yaw = 0.7;
+  let pitch = 0.35;
+  let distance = 2.6;
+  let dragging = false;
+  let lastX = 0;
+  let lastY = 0;
+  canvas.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    lastX = event.clientX;
+    lastY = event.clientY;
+    canvas.setPointerCapture(event.pointerId);
+  });
+  canvas.addEventListener("pointerup", () => { dragging = false; });
+  canvas.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    yaw += (event.clientX - lastX) * 0.01;
+    pitch += (event.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.2, Math.min(1.2, pitch));
+    lastX = event.clientX;
+    lastY = event.clientY;
+  });
+  canvas.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    distance *= event.deltaY > 0 ? 1.08 : 0.92;
+    distance = Math.max(1.2, Math.min(8.0, distance));
+  }, { passive: false });
+  function perspective(fovy, aspect, near, far) {
+    const f = 1 / Math.tan(fovy / 2);
+    const nf = 1 / (near - far);
+    return new Float32Array([
+      f / aspect, 0, 0, 0,
+      0, f, 0, 0,
+      0, 0, (far + near) * nf, -1,
+      0, 0, 2 * far * near * nf, 0
+    ]);
+  }
+  function look(eye, target, up) {
+    function norm(v) {
+      const n = Math.hypot(v[0], v[1], v[2]) || 1;
+      return [v[0] / n, v[1] / n, v[2] / n];
+    }
+    function cross(a, b) {
+      return [a[1]*b[2] - a[2]*b[1], a[2]*b[0] - a[0]*b[2], a[0]*b[1] - a[1]*b[0]];
+    }
+    function sub(a, b) { return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; }
+    const z = norm(sub(eye, target));
+    const x = norm(cross(up, z));
+    const y = cross(z, x);
+    return new Float32Array([
+      x[0], y[0], z[0], 0,
+      x[1], y[1], z[1], 0,
+      x[2], y[2], z[2], 0,
+      -(x[0]*eye[0] + x[1]*eye[1] + x[2]*eye[2]),
+      -(y[0]*eye[0] + y[1]*eye[1] + y[2]*eye[2]),
+      -(z[0]*eye[0] + z[1]*eye[1] + z[2]*eye[2]),
+      1
+    ]);
+  }
+  function multiply(a, b) {
+    const out = new Float32Array(16);
+    for (let col = 0; col < 4; col++) {
+      for (let row = 0; row < 4; row++) {
+        out[col * 4 + row] =
+          a[row] * b[col * 4] +
+          a[4 + row] * b[col * 4 + 1] +
+          a[8 + row] * b[col * 4 + 2] +
+          a[12 + row] * b[col * 4 + 3];
+      }
+    }
+    return out;
+  }
+  function frame() {
+    const width = canvas.clientWidth || 1;
+    const height = canvas.clientHeight || 1;
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.07, 0.08, 0.1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    const eye = [
+      distance * Math.cos(pitch) * Math.sin(yaw),
+      distance * Math.sin(pitch),
+      distance * Math.cos(pitch) * Math.cos(yaw)
+    ];
+    const view = look(eye, [0, 0, 0], [0, 1, 0]);
+    const proj = perspective(0.9, canvas.width / canvas.height, 0.05, 40);
+    const mvp = multiply(proj, view);
+    gl.uniformMatrix4fv(uMvp, false, mvp);
+    const nmat = new Float32Array([
+      view[0], view[1], view[2],
+      view[4], view[5], view[6],
+      view[8], view[9], view[10]
+    ]);
+    gl.uniformMatrix3fv(uN, false, nmat);
+    gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_INT, 0);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[package]
+name = "rust3d"
+version = "1.0.1"
+edition = "2021"
+description = "rust3d builds a glTF model and an HTML viewer from outline images."
+license = "MIT"
+authors = ["Wilgat Wong <wilgat.wong@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/cloudgen/rust3d"
+keywords = ["cli", "tui", "gltf", "3d", "outline"]
+categories = ["command-line-utilities"]
+default-run = "rust3d"
+
+[[bin]]
+name = "rust3d"
+path = "src/bin/rust3d.rs"
+
+[dependencies]
+chrono = "0.4"
+crossterm = "0.28"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
+serde_json = "1"
+unicode-width = "0.2"
+
+[dev-dependencies]
+image = { version = "0.25", default-features = false, features = ["png"] }
